@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace hashTable
 {
-    public class hashTableUC2<K, V>
+    public class hashTableUC3<K, V>
     {
+
         private readonly int size;
         //passing the key value pair to the linked list
-        private readonly LinkedList<KeyValue<K, V>>[] iteams;
+        private readonly LinkedList<KeyValue3<K, V>>[] iteams;
 
         /// <summary>
         /// constructor to initialize
         /// </summary>
         /// <param name="size"></param>
-        public hashTableUC2(int size)
+        public hashTableUC3(int size)
         {
             this.size = size;
-            this.iteams = new LinkedList<KeyValue<K, V>>[size];
+            this.iteams = new LinkedList<KeyValue3<K, V>>[size];
         }
         /// <summary>
         /// method to fing the postion of the hash(creating hash code)
@@ -40,8 +40,8 @@ namespace hashTable
         public V Get(K key)
         {
             int position = getArrayPosition(key);
-            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
-            foreach (KeyValue<K, V> item in linkedList)
+            LinkedList<KeyValue3<K, V>> linkedList = GetLinkedList(position);
+            foreach (KeyValue3<K, V> item in linkedList)
             {
                 if (item.key.Equals(key))
                 {
@@ -55,21 +55,22 @@ namespace hashTable
         public void Add(K key, V value)
         {
             int position = getArrayPosition(key);
-            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
+            LinkedList<KeyValue3<K, V>> linkedList = GetLinkedList(position);
             //object of keyvalue
             //object initialization(declaration and initialiation at a one time)
             //It doesnot invoke constructor
-            KeyValue<K, V> item = new KeyValue<K, V>() { key = key, value = value };
+            KeyValue3<K, V> item = new KeyValue3<K, V>() { key = key, value = value };
+            //assign values to Key and Value
             linkedList.AddLast(item);
         }
 
         public void Remove(K key)
         {
             int position = getArrayPosition(key);
-            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
+            LinkedList<KeyValue3<K, V>> linkedList = GetLinkedList(position);
             bool itemFound = false;
-            KeyValue<K, V> foundItem = default(KeyValue<K, V>);
-            foreach (KeyValue<K, V> item in linkedList)
+            KeyValue3<K, V> foundItem = default(KeyValue3<K, V>);
+            foreach (KeyValue3<K, V> item in linkedList)
             {
                 if (item.key.Equals(key))
                 {
@@ -86,17 +87,20 @@ namespace hashTable
         }
         //method getlinkedlist, has  a return type linkist as a key value pair
         //parameter is position it will be an index
-        protected LinkedList<KeyValue<K, V>> GetLinkedList(int position)
+        protected LinkedList<KeyValue3<K, V>> GetLinkedList(int position)
         {
-            LinkedList<KeyValue<K, V>> linkedList = iteams[position];
+            LinkedList<KeyValue3<K, V>> linkedList = iteams[position];
             if (linkedList == null)
             {
-                linkedList = new LinkedList<KeyValue<K, V>>();
+                linkedList = new LinkedList<KeyValue3<K, V>>();
                 iteams[position] = linkedList;
             }
             return linkedList;
 
         }
+
+
+
     }
     /// <summary>
     /// this method is for passing Keyvales in linkedlist
@@ -104,7 +108,7 @@ namespace hashTable
     /// </summary>
     /// <typeparam name="k"></typeparam>
     /// <typeparam name="v"></typeparam>
-    public struct KeyValue<k, v>
+    public struct KeyValue3<k, v>
     {
         public k key { get; set; }
         public v value { get; set; }
